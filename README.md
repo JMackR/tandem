@@ -2,10 +2,10 @@
 Description: Simple Dashboard displaying 4 tiles displaying statistics
 
 ![Image of IOS]
-https://github.com/jimreynolds67/tandem/blob/master/tandem/ios.png
+(https://github.com/jimreynolds67/tandem/blob/master/tandem/ios.png)
 
 ![Image of ANDROID]
-https://github.com/jimreynolds67/tandem/blob/master/tandem/ios.png
+(https://github.com/jimreynolds67/tandem/blob/master/tandem/ios.png)
 
 Setting up the development environment 
 Brew
