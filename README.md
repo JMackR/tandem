@@ -1,5 +1,5 @@
 # tandem
-Description: Simple Dashboard displaying 4 tiles displaying statistics
+# Description: Simple Dashboard displaying 4 tiles displaying statistics
 
 ![Image of IOS]
 (https://github.com/jimreynolds67/tandem/blob/master/tandem/ios.png)
@@ -7,7 +7,8 @@ Description: Simple Dashboard displaying 4 tiles displaying statistics
 ![Image of ANDROID]
 (https://github.com/jimreynolds67/tandem/blob/master/tandem/ios.png)
 
-Setting up the development environment 
+# Setting up the development environment 
+
 Brew
 Node
 watchman
@@ -18,37 +19,37 @@ typescript template
 
 clone repo 
 
-Server installation 
+# Server installation 
 cd /server
 yarn
 
 
-App Installation
+# App Installation
 cd to project dir 
 yarn 
 
-There is a postinstall script created to make your life a little better by installing the Pods and Jettify all dependencies
+** There is a postinstall script created to make your life a little better by installing the Pods and Jettify all dependencies
 
 In the root project folder cmdline 
 
-Start the Rest Api Server
+## Start the Rest Api Server
 * yarn server
 
-Start IOS 
+## Start IOS 
 * yarn ios
 
-Start ANDROID: open AVD manager/launch a device 
+## Start ANDROID: open AVD manager/launch a device 
 
-***YOU may or may not need to cd android/local.properties and change line 8 to user your laptops user name
+** YOU may or may not need to cd android/local.properties and change line 8 to user your laptops user name
 
 * yarn android
 
 
-Server Implementation
+# Server Implementation
 Simple express server api to serve up json data with an array of preset number
 Did not use typescript for the server...
 
-Folder Structure:
+# Folder Structure:
 
 server          #mostly boilerplate
 /routes/v1/     # 2 routes /data1 or /data2
@@ -59,9 +60,9 @@ server          #mostly boilerplate
 /db             #imports and returns json file 
 
 
-App Structure
+# App Structure
 
-STYLING
+## STYLING
 ***A custom styling architecture is implemented to avoid inline styles as much as possible
 
 All styles used are memoized when using mergeStyles from /utils/styles/merge-styles
@@ -69,7 +70,7 @@ a custom screen size scalling method is added moderateScale /utils/styles/scalin
 typography, colors, layout are all controlled in the /theme folder 
 
 
-COMMON COMPONENT
+## COMMON COMPONENT
 /components
 Button
 Gauge =>"Tile"
@@ -81,18 +82,18 @@ SCREENS => Containers
 /screens
 Home 
 
-***Folder structures are setup with each component having a named file and an index file for export this system helps when you have multiple files open
+** Folder structures are setup with each component having a named file and an index file for export this system helps when you have multiple files open
 You don't have a bunch of "index" files in your editor
 This also allows you to keep your any presets, props, and test files contained within
 
 
-Testing suite
+# Testing suite
 yarn test
 using jest and enzyme
 
-***Several test don't pass didn't have time to finish
+** Several test don't pass didn't have time to finish
 
-***Used typescript as much as possible time constaints forced me to get sloppy to get it done on time
+** Used typescript as much as possible time constaints forced me to get sloppy to get it done on time
 
 
 
