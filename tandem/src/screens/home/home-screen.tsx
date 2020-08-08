@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
-import { View } from "react-native"
+import { ScrollView, View } from "react-native"
 import { Button, Dashboard, Text, TextField } from "../../components"
 import { useAxios, useCalc } from "../../hooks"
 import { mergeStyles, numberValidation } from "../../utils"
-import { ROOT_URL } from "../../constants"
 import { styles } from "../../theme/styles"
 
 const containerStyle = {
@@ -57,7 +56,7 @@ export const Home = () => {
     setUrl(url)
   }
   return (
-    <View style={containerStyle}>
+    <ScrollView contentContainerStyle={containerStyle}>
       <View style={titleContainer}>
         <Text preset={"title1"} text={"Tandem Test"} color={"white"} />
       </View>
@@ -89,6 +88,6 @@ export const Home = () => {
         />
         <Button style={buttonStyle} preset="brand" onPress={() => submitDataSet("data1")} text={"Data Set 2"} />
       </View>
-    </View>
+    </ScrollView>
   )
 }
