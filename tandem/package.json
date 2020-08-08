@@ -1,6 +1,7 @@
 {
   "name": "tandem",
   "version": "0.0.1",
+  "description": "tandem app test",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
