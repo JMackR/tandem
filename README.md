@@ -40,7 +40,8 @@
 
 ## Start ANDROID: open AVD manager/launch a device 
 
-- [x] YOU may or may not need to cd android/local.properties and change line 8 to user your laptops user name
+- [x] YOU may or may not need to cd android/local.properties and add sdk.dir=/Users/<YOUR_USERNAME>/Library/Android/sdk
+- [x If the file doesn't exist add local.properties to your tandem/android/
 
 - [x] yarn android
 
