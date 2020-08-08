@@ -54,7 +54,6 @@ export const Home = () => {
     inputRef.current.focus()
   }
   const submitDataSet = (url) => {
-    console.log("what is the url", url)
     setUrl(url)
   }
   return (
