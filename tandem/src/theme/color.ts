@@ -41,7 +41,7 @@ export const color = {
   /** The dark screen background */
   darkBackground: palette.darkblue,
   /** Branding color */
-  brand: palette.opticYellow,
+  brand: palette.white,
   /** The main tinting color. */
   primary: palette.purple,
   /** The secondary tinting color. */

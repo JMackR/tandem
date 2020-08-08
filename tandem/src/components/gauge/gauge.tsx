@@ -7,10 +7,8 @@ import { styles } from "../../theme/styles"
 import { color, size } from "../../theme"
 const containerStyle = {
   ...styles.justifyBetween,
-  alignItems: "center",
   ...styles.justifyCenter,
   ...styles.pad,
-  ...color.darkBackground,
 }
 
 export const Gauge = ({ value, title }) => {

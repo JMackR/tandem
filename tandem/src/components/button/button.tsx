@@ -1,79 +1,109 @@
-import React, { useRef } from "react"
-import {
-  Animated,
-  ImageStyle,
-  Platform,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextStyle,
-  TouchableNativeFeedback,
-  TouchableWithoutFeedback,
-  View,
-  ViewStyle,
-} from "react-native"
+import * as React from "react"
+import { TextStyle, TouchableHighlight, TouchableOpacity, View, ViewStyle } from "react-native"
+import { Text } from ".."
 
-import { ButtonProps } from "./button-props"
+import { presets } from "./button.presets"
+import { ButtonProps } from "./button.props"
+import { color, globals, styles } from "../../theme"
+import { mergeStyles } from "../../utils/styles"
+import { iif } from "../../utils"
 
-const TRANSPARENT = "#FFFFFF00"
-const ANIMATION_DURATION = 100
+const hideBorder = { borderColor: color.transparent } as ViewStyle
+const spreadText = { textAlign: "left" } as TextStyle
+const spreadView = { justifyContent: "space-between" } as ViewStyle
+const squaredStyle = { borderRadius: 0 } as ViewStyle
 
-export const Button = (props: ButtonProps) => {
-  const { onClick, onLongClick, title, subtitle } = props
+/**
+ * Buttons!
+ * @param preset
+ * @param tx
+ * @param txOptions
+ * @param text
+ * @param styleOverride
+ * @param textStyleOverride
+ * @param children
+ * @param disabled
+ * @param justify
+ * @param selected
+ * @param shadow
+ * @param icon
+ * @param rest
+ * @param groupId
+ * @param squared
+ * @param onPress
+ * @constructor
+ */
+export function Button({
+  preset = "primary",
+  tx,
+  txOptions,
+  text,
+  style: styleOverride,
+  textStyle: textStyleOverride,
+  children,
+  disabled,
+  justify,
+  selected,
+  allowUnselect,
+  shadow,
+  icon,
+  groupId,
+  squared,
+  iconColor,
+  onPress,
+  ...rest
+}: ButtonProps) {
+  const [showUnderlay, setShowUnderlay] = React.useState<boolean>()
+  const [groupSelected, setGroupSelected] = React.useState<boolean>(!!groupId && groupId === buttonGroup?.selected)
 
-  const buttonStyles: StyleProp<ViewStyle> = [styles.button]
-  const textStyles: StyleProp<TextStyle> = [styles.text]
-  const subtitleStyles: StyleProp<TextStyle> = [styles.subtitle]
+  const isSpread = justify === "spread"
+  const presetStyle = presets[preset]
+  const isSelected = selected || groupSelected
 
-  const clickHandler = () => {
-    if (onClick) {
-      onClick()
-    }
-  }
+  const viewStyle = mergeStyles(
+    presetStyle.viewStyle,
+    disabled && styles.disabled,
+    iif(showUnderlay, hideBorder),
+    iif(isSpread, spreadView),
+    iif(isSelected, presetStyle.selectedViewStyle),
+    iif(shadow, styles.shadow),
+    styleOverride,
+    iif(squared, squaredStyle),
+  )
 
-  const Touchable = Platform.OS === "android" ? TouchableNativeFeedback : TouchableWithoutFeedback
+  const textStyle = mergeStyles(
+    presetStyle.textStyle,
+    textStyleOverride,
+    iif(isSelected, presetStyle.selectedTextStyle),
+    iif(isSpread, spreadText),
+  )
+
+  const content = (
+    <React.Fragment>
+      {children ||
+        ((text || tx) && (
+          <Text preset="button" tx={tx} txOptions={txOptions} text={text} style={textStyle} numberOfLines={1} />
+        ))}
+    </React.Fragment>
+  )
+
+  const onPressCallback = React.useCallback(
+    (e) => {
+      if (onPress) onPress(e)
+    },
+    [onPress],
+  )
 
   return (
-    <Touchable accessibilityRole="button" onPress={clickHandler} onLongPress={onLongClick} touchSoundDisabled={false}>
-      <Animated.View style={buttonStyles}>
-        <View style={styles.textContainer}>
-          <Text style={textStyles} testID="ucl.button.title" accessibilityLabel="ucl.button.title">
-            {title}
-          </Text>
-          <Text style={subtitleStyles} testID="ucl.button.subtitle" accessibilityLabel="ucl.button.subtitle">
-            {subtitle}
-          </Text>
-        </View>
-      </Animated.View>
-    </Touchable>
+    <TouchableOpacity
+      style={viewStyle}
+      onShowUnderlay={() => setShowUnderlay(true)}
+      onHideUnderlay={() => setShowUnderlay(false)}
+      disabled={disabled || (isSelected && !allowUnselect)}
+      onPress={onPressCallback}
+      {...rest}
+    >
+      {content}
+    </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  button: {
-    flex: 0,
-    borderRadius: 4,
-
-    flexDirection: "row",
-    flexWrap: "nowrap",
-
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "stretch",
-  },
-  icon: {
-    marginRight: 4,
-  },
-  textContainer: {
-    alignSelf: "auto",
-    flex: 0,
-    flexDirection: "column",
-  },
-  text: {
-    textAlign: "center",
-    alignContent: "center",
-  },
-  subtitle: {
-    textAlign: "center",
-  },
-})
